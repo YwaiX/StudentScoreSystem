@@ -70,6 +70,11 @@ public class StudentDaoImpl implements StudentDao {
         return 0;
     }
     
+    /**
+     * 删除学生
+     * @param studentId
+     * @return
+     */
     @Override
     public Integer deleteStudent(Integer studentId) {
         Connection connection = null;

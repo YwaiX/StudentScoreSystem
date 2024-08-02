@@ -29,7 +29,7 @@ public interface CourseService {
     
     /**
      * 删除学科
-     * @param courseId
+     * @param courseIds
      * @return
      */
     Integer deleteCourse(Object[] courseIds);
