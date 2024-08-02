@@ -32,7 +32,7 @@ public interface CourseService {
      * @param courseId
      * @return
      */
-    Integer deleteCourse(Integer courseId);
+    Integer deleteCourse(Object[] courseIds);
     
     /**
      * 批量删除学科

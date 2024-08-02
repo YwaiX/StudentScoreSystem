@@ -98,8 +98,11 @@ public class StudentController {
             System.out.print("请输入学生学号:");
             Integer studentId = userInput.nextInt();
             if (checkStudentId(studentId)){
+                List<Object> list = new ArrayList<>();
+                list.add(studentId);
+                Object[] studentIds = list.toArray();
                 //直接调用service删除学生
-                int i = studentService.deleteStudent(studentId);
+                int i = studentService.deleteStudent(studentIds);
                 //如果i == 1说明删除成功,否则删除失败
                 if (i == 1){
                     System.out.println("删除成功!!!\n");

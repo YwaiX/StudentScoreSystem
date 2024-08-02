@@ -186,11 +186,10 @@ public class ScoreDaoImpl implements ScoreDao {
     /**
      * 根据学生id删除成绩
      *
-     * @param studentId
-     * @return
+     * @param studentIds
      */
     @Override
-    public Integer deleteScoreByStudentId(Integer studentId) {
+    public void deleteScoreByStudentId(Object[] studentIds) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         
@@ -200,16 +199,23 @@ public class ScoreDaoImpl implements ScoreDao {
             
             //sql语句
             @Language("sql")
-            String sql = "delete from score where student_id = ?";
+            String sql = "delete from score where student_id in (";
+            for (int i = 0; i < studentIds.length; i++) {
+                sql += "?";
+                sql += (i == studentIds.length - 1) ? ")" : ",";
+            }
             
             //sql预编译
             preparedStatement = connection.prepareStatement(sql);
             
             //sql语句添加数据
-            preparedStatement.setObject(1, studentId);
+            for (int i = 0; i < studentIds.length; i++) {
+                preparedStatement.setObject(i+1, studentIds[i]);
+            }
+            
             
             //执行sql
-            return preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -217,17 +223,15 @@ public class ScoreDaoImpl implements ScoreDao {
             DruidUtil.close(null, preparedStatement, connection);
         }
         
-        return 0;
     }
     
     /**
      * 根据学科id删除成绩
      *
-     * @param courseId
-     * @return
+     * @param courseIds
      */
     @Override
-    public Integer deleteScoreByCourseId(Integer courseId) {
+    public void deleteScoreByCourseId(Object[] courseIds) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         
@@ -237,16 +241,24 @@ public class ScoreDaoImpl implements ScoreDao {
             
             //sql语句
             @Language("sql")
-            String sql = "delete from score where course_id = ?";
+            String sql = "delete from score where course_id in (";
+            
+            for (int i = 0; i < courseIds.length; i++) {
+                sql += "?";
+                sql += (i == courseIds.length - 1) ? ")" : ",";
+            }
             
             //sql预编译
             preparedStatement = connection.prepareStatement(sql);
             
             //sql语句添加数据
-            preparedStatement.setObject(1, courseId);
+            for (int i = 0; i < courseIds.length; i++) {
+                preparedStatement.setObject(i + 1, courseIds[i]);
+            }
+            
             
             //执行sql
-            return preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -254,7 +266,6 @@ public class ScoreDaoImpl implements ScoreDao {
             DruidUtil.close(null, preparedStatement, connection);
         }
         
-        return 0;
     }
     
     /**

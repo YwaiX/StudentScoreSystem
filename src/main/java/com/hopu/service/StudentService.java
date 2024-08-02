@@ -29,10 +29,10 @@ public interface StudentService {
     
     /**
      * 删除学生
-     * @param studentId
+     * @param studentIds
      * @return
      */
-    Integer deleteStudent(Integer studentId);
+    Integer deleteStudent(Object[] studentIds);
     
     /**
      * 批量删除学生

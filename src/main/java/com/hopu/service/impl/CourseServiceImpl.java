@@ -49,16 +49,18 @@ public class CourseServiceImpl implements CourseService {
     /**
      * 删除学科
      *
-     * @param courseId
+     * @param courseIds
      * @return
      */
     @Override
-    public Integer deleteCourse(Integer courseId) {
+    public Integer deleteCourse(Object[] courseIds) {
+        Integer courseId = (Integer) courseIds[0];
+        
         //先删除学科再删除成绩
         Integer i = courseDao.deleteCourse(courseId);
         //直接调用dao接口实现删除学科
-        Integer i1 = scoreDao.deleteScoreByCourseId(courseId);
-        return i == 1 && i1 == 1 ? 1 : 0;
+        scoreDao.deleteScoreByCourseId(courseIds);
+        return i;
     }
     
     /**
@@ -69,9 +71,12 @@ public class CourseServiceImpl implements CourseService {
      */
     @Override
     public Integer deleteCourses(Object[] courseIds) {
+        //先删除学科再删除成绩
+        Integer i = courseDao.deleteCourses(courseIds);
         
         //直接调用dao批量删除学科
-        return courseDao.deleteCourses(courseIds);
+        scoreDao.deleteScoreByCourseId(courseIds);
+        return i;
     }
     
     /**

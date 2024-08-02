@@ -50,16 +50,17 @@ public class StudentServiceImpl implements StudentService {
     /**
      * 删除学生
      *
-     * @param studentId
+     * @param studentIds
      * @return
      */
     @Override
-    public Integer deleteStudent(Integer studentId) {
+    public Integer deleteStudent(Object[] studentIds) {
+        Integer studentId = (Integer) studentIds[0];
         //先删除学生再删除成绩
         Integer i = studentDao.deleteStudent(studentId);
         //直接调用dao接口删除学生
-        Integer i1 = scoreDao.deleteScoreByStudentId(studentId);
-        return i == 1 && i1 == 1 ? 1 : 0;
+        scoreDao.deleteScoreByStudentId(studentIds);
+        return i ;
     }
     
     /**
@@ -70,9 +71,11 @@ public class StudentServiceImpl implements StudentService {
      */
     @Override
     public Integer deleteStudents(Object[] studentIds) {
-        
+        //先删除学生再删除成绩
+        Integer i = studentDao.deleteStudents(studentIds);
         //直接调用dao接口批量删除学生
-        return studentDao.deleteStudents(studentIds);
+        scoreDao.deleteScoreByStudentId(studentIds);;
+        return i;
     }
     
     /**

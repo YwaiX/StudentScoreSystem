@@ -44,17 +44,17 @@ public interface ScoreDao {
     
     /**
      * 根据学生id删除成绩
-     * @param studentId
-     * @return
+     *
+     * @param studentIds
      */
-    Integer deleteScoreByStudentId(Integer studentId);
+    void deleteScoreByStudentId(Object[] studentIds);
     
     /**
      * 根据学科id删除成绩
-     * @param courseId
-     * @return
+     *
+     * @param courseIds
      */
-    Integer deleteScoreByCourseId(Integer courseId);
+    void deleteScoreByCourseId(Object[] courseIds);
     
     /**
      * 获取成绩列表

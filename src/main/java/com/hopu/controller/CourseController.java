@@ -94,6 +94,7 @@ public class CourseController {
         //删除之前先显示所有学科
         getCourseList();
         
+        List<Integer> list = new ArrayList<>();
         //循环控制删除的学科id存在
         while (true) {
             System.out.print("请输入学科id:");
@@ -101,7 +102,10 @@ public class CourseController {
             //调用判断学号方法
             if (checkCourseId(courseId)) {
                 //调用service接口实现删除学科
-                int i = courseService.deleteCourse(courseId);
+                list.add(courseId);
+                
+                Object[] courseIds = list.toArray();
+                int i = courseService.deleteCourse(courseIds);
                 //如果i==1说明删除成功,否则删除失败
                 if (i == 1) {
                     System.out.println("删除成功!!!\n");
