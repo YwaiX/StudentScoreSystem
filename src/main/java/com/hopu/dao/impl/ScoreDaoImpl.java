@@ -285,7 +285,7 @@ public class ScoreDaoImpl implements ScoreDao {
             
             //sql语句
             @Language("sql")
-            String sql = "select * from score";
+            String sql = "select * from score order by score desc";
             
             //sql预编译
             preparedStatement = connection.prepareStatement(sql);
@@ -331,7 +331,7 @@ public class ScoreDaoImpl implements ScoreDao {
             
             //sql语句
             @Language("sql")
-            String sql = "select * from score where student_id = ?";
+            String sql = "select * from score where student_id = ? order by score desc";
             
             //sql预编译
             preparedStatement = connection.prepareStatement(sql);

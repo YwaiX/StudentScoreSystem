@@ -173,7 +173,7 @@ public class ScoreController {
         //调用service接口获取成绩列表
         List<Score> scores = scoreService.getScoreList();
         for (int i = 0; i < scores.size(); i++) {
-            System.out.println(scores);
+            System.out.println(scores.get(i));
         }
     }
     
@@ -205,7 +205,7 @@ public class ScoreController {
             System.out.println("当前学生暂无成绩");
         }
         for (int i = 0; i < scores.size(); i++) {
-            System.out.println(scores);
+            System.out.println(scores.get(i));
         }
     }
     
